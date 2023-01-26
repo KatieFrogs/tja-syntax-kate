@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="TJA (Konga)" section="Other" extensions="*.tja" mimetype="" version="1" kateversion="5.0" author="Katie Frogs" license="PD">
+	<highlighting>
+		<list name="MetadataFloat">
+			<item>BPM</item>
+			<item>OFFSET</item>
+			<item>DEMOSTART</item>
+			<item>SONGVOL</item>
+			<item>SEVOL</item>
+			<item>HEADSCROLL</item>
+			<item>MOVIEOFFSET</item>
+		</list>
+		<list name="MetadataIntString">
+			<item>SIDE</item>
+		</list>
+		<list name="MetadataInt">
+			<item>SCOREMODE</item>
+			<item>LIFE</item>
+		</list>
+		<list name="MetadataString">
+			<item>TITLE</item>
+			<item>TITLEJA</item>
+			<item>TITLEEN</item>
+			<item>TITLECN</item>
+			<item>TITLETW</item>
+			<item>TITLEKO</item>
+			<item>SUBTITLEJA</item>
+			<item>SUBTITLEEN</item>
+			<item>SUBTITLECN</item>
+			<item>SUBTITLETW</item>
+			<item>SUBTITLEKO</item>
+			<item>WAVE</item>
+			<item>GENRE</item>
+			<item>LYRICS</item>
+			<item>GAME</item>
+			<item>BGIMAGE</item>
+			<item>BGMOVIE</item>
+		</list>
+		<list name="CourseFloat">
+			<item>SCOREDIFF</item>
+		</list>
+		<list name="CourseIntString">
+			<item>COURSE</item>
+			<item>STYLE</item>
+		</list>
+		<list name="CourseInt">
+			<item>LEVEL</item>
+			<item>TOTAL</item>
+			<item>HIDDENBRANCH</item>
+		</list>
+		<list name="CourseString">
+			<item>GAUGEINCR</item>
+			<item>NOTESDESIGNER0</item>
+			<item>NOTESDESIGNER1</item>
+			<item>NOTESDESIGNER2</item>
+			<item>NOTESDESIGNER3</item>
+			<item>NOTESDESIGNER4</item>
+			<item>NOTESDESIGNER5</item>
+			<item>NOTESDESIGNER6</item>
+		</list>
+		<list name="CourseExam">
+			<item>EXAM1</item>
+			<item>EXAM2</item>
+			<item>EXAM3</item>
+			<item>EXAM4</item>
+		</list>
+		<list name="CourseListFloat">
+			<item>SCOREINIT</item>
+		</list>
+		<list name="CourseListInt">
+			<item>BALLOON</item>
+		</list>
+		<list name="CommandOutside">
+			<item>BMSCROLL</item>
+			<item>HBSCROLL</item>
+		</list>
+		<list name="CommandFloat">
+			<item>BPMCHANGE</item>
+			<item>DELAY</item>
+			<item>SCROLL</item>
+		</list>
+		<list name="CommandIntString">
+			<item>BARLINESCROLL</item>
+		</list>
+		<list name="CommandListString">
+			<item>BRANCHSTART</item>
+			<item>NEXTSONG</item>
+		</list>
+		<list name="CommandSpaceListInt">
+			<item>SENOTECHANGE</item>
+			<item>SUDDEN</item>
+			<item>JPOSSCROLL</item>
+		</list>
+		<list name="CommandBlank">
+			<item>GOGOSTART</item>
+			<item>GOGOEND</item>
+			<item>BARLINEOFF</item>
+			<item>BARLINEON</item>
+			<item>N</item>
+			<item>E</item>
+			<item>M</item>
+			<item>BRANCHEND</item>
+			<item>SECTION</item>
+			<item>LEVELHOLD</item>
+			<item>DIRECTION</item>
+			<item>BARLINE</item>
+		</list>
+		<list name="CommandMisc">
+			<item>MEASURE</item>
+			<item>LYRIC</item>
+			<item>END</item>
+		</list>
+		<list name="OptionsTaikowebskin">
+			<item>dir</item>
+			<item>name</item>
+			<item>song</item>
+			<item>stage</item>
+			<item>don</item>
+		</list>
+		<contexts>
+			<context name="Start" attribute="Normal Text" lineEndContext="#stay">
+				<IncludeRules context="CommentStart"/>
+				<keyword attribute="Metadata" context="MetadataFloat" String="MetadataFloat" column="0"/>
+				<keyword attribute="Metadata" context="MetadataIntString" String="MetadataIntString" column="0"/>
+				<keyword attribute="Metadata" context="MetadataInt" String="MetadataInt" column="0"/>
+				<keyword attribute="Metadata" context="MetadataString" String="MetadataString" column="0"/>
+				<WordDetect attribute="Metadata" context="MetadataSubtitle" String="SUBTITLE" column="0"/>
+				<WordDetect attribute="Metadata" context="MetadataMaker" String="MAKER" column="0"/>
+				<WordDetect attribute="Metadata" context="MetadataTaikowebskin" String="TAIKOWEBSKIN" column="0"/>
+				<keyword attribute="Course" context="MetadataFloat" String="CourseFloat" column="0"/>
+				<keyword attribute="Course" context="MetadataIntString" String="CourseIntString" column="0"/>
+				<keyword attribute="Course" context="MetadataInt" String="CourseInt" column="0"/>
+				<keyword attribute="Course" context="MetadataString" String="CourseString" column="0"/>
+				<keyword attribute="Course" context="MetadataListString" String="CourseExam" column="0"/>
+				<keyword attribute="Course" context="MetadataListFloat" String="CourseListFloat" column="0"/>
+				<keyword attribute="Course" context="MetadataListInt" String="CourseListInt" column="0"/>
+				<DetectChar attribute="Operator" context="CommandOutside" char="#" column="0"/>
+			</context>
+			
+			<context name="CommentStart" attribute="Error" lineEndContext="#pop">
+				<DetectSpaces attribute="Normal Text"/>
+				<Detect2Chars attribute="Comment" context="Comment" char="/" char1="/"/>
+			</context>
+			<context name="Comment" attribute="Comment" lineEndContext="#pop"/>
+			
+			<context name="MetadataFloat" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectChar attribute="Normal Text" context="FloatValue" char=":"/>
+			</context>
+			<context name="FloatValue" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectSpaces attribute="Normal Text"/>
+				<DetectChar attribute="Int" context="FloatValue2" char="-"/>
+				<Float attribute="Int" context="Error2"/>
+				<Int attribute="Int" context="Error2"/>
+			</context>
+			<context name="FloatValue2" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<Float attribute="Int" context="Error2"/>
+				<Int attribute="Int" context="Error2"/>
+			</context>
+			
+			<context name="MetadataIntString" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectChar attribute="Normal Text" context="IntStringValue" char=":"/>
+			</context>
+			<context name="IntStringValue" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectSpaces attribute="Normal Text"/>
+				<Int attribute="Int" context="Error2"/>
+				<DetectIdentifier attribute="String" context="Error2"/>
+			</context>
+			
+			<context name="MetadataInt" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectChar attribute="Normal Text" context="IntValue" char=":"/>
+			</context>
+			<context name="IntValue" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectSpaces attribute="Normal Text"/>
+				<Int attribute="Int" context="Error2"/>
+			</context>
+			
+			<context name="MetadataString" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectChar attribute="Normal Text" context="StringValue" char=":"/>
+			</context>
+			<context name="StringValue" attribute="String" lineEndContext="#pop">
+				<IncludeRules context="CommentStart"/>
+			</context>
+			
+			<context name="MetadataSubtitle" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectChar attribute="Normal Text" context="SubtitleValue" char=":"/>
+			</context>
+			<context name="SubtitleValue" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectSpaces attribute="Normal Text"/>
+				<Detect2Chars attribute="Normal Text" context="StringValue" char="-" char1="-"/>
+				<Detect2Chars attribute="Normal Text" context="StringValue" char="+" char1="+"/>
+			</context>
+			
+			<context name="MetadataMaker" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectChar attribute="Normal Text" context="MakerValue" char=":"/>
+			</context>
+			<context name="MakerValue" attribute="String" lineEndContext="#pop">
+				<DetectChar attribute="Normal Text" context="MakerLink" char="&lt;"/>
+				<IncludeRules context="CommentStart"/>
+			</context>
+			<context name="MakerLink" attribute="Link" lineEndContext="#pop">
+				<DetectChar attribute="Normal Text" context="#pop" char="&gt;"/>
+			</context>
+			
+			<context name="MetadataTaikowebskin" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectChar attribute="Normal Text" context="TaikowebskinValue" char=":"/>
+			</context>
+			<context name="TaikowebskinValue" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectSpaces attribute="Normal Text"/>
+				<keyword attribute="Attribute" context="TaikowebskinObj" String="OptionsTaikowebskin"/>
+				<IncludeRules context="CommentStart"/>
+			</context>
+			<context name="TaikowebskinObj" attribute="String" lineEndContext="#pop">
+				<DetectChar attribute="Normal Text" context="#pop" char=","/>
+				<IncludeRules context="CommentStart"/>
+			</context>
+			
+			<context name="MetadataListString" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectChar attribute="Normal Text" context="ListStringValue" char=":"/>
+			</context>
+			<context name="ListStringValue" attribute="String" lineEndContext="#pop">
+				<DetectChar attribute="Normal Text" char=","/>
+				<IncludeRules context="CommentStart"/>
+			</context>
+			
+			<context name="MetadataListFloat" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectChar attribute="Normal Text" context="ListFloatValue" char=":"/>
+			</context>
+			<context name="ListFloatValue" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectSpaces attribute="Normal Text"/>
+				<DetectChar attribute="Int" context="ListFloatValue2" char="-"/>
+				<Float attribute="Int" context="CommaPop"/>
+				<Int attribute="Int" context="CommaPop"/>
+			</context>
+			<context name="ListFloatValue2" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<Float attribute="Int" context="CommaPop2"/>
+				<Int attribute="Int" context="CommaPop2"/>
+			</context>
+			<context name="CommaPop" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectSpaces attribute="Normal Text"/>
+				<DetectChar attribute="Normal Text" context="#pop" char=","/>
+			</context>
+			<context name="CommaPop2" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectSpaces attribute="Normal Text"/>
+				<DetectChar attribute="Normal Text" context="#pop#pop" char=","/>
+			</context>
+			
+			<context name="MetadataListInt" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectChar attribute="Normal Text" context="ListIntValue" char=":"/>
+			</context>
+			<context name="ListIntValue" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectSpaces attribute="Normal Text"/>
+				<Int attribute="Int" context="CommaPop"/>
+			</context>
+			
+			<context name="CommandOutside" attribute="Normal Text" lineEndContext="#pop">
+				<keyword attribute="Command" context="#pop" String="CommandOutside"/>
+				<StringDetect attribute="CommandStart" context="ChartStart" String="START" beginRegion="Chart"/>
+				<keyword attribute="Error" context="#pop" String="CommandFloat"/>
+				<keyword attribute="Error" context="#pop" String="CommandIntString"/>
+				<keyword attribute="Error" context="#pop" String="CommandListString"/>
+				<keyword attribute="Error" context="#pop" String="CommandSpaceListInt"/>
+				<keyword attribute="Error" context="#pop" String="CommandBlank"/>
+				<keyword attribute="Error" context="#pop" String="CommandMisc"/>
+			</context>
+			
+			<context name="ChartStart" attribute="Error" lineEndContext="Chart">
+				<Detect2Chars attribute="String" char="P" char1="1"/>
+				<Detect2Chars attribute="String" char="P" char1="2"/>
+				<IncludeRules context="CommentStart"/>
+			</context>
+			
+			<context name="Chart" attribute="Error" lineEndContext="#stay" fallthroughContext="Error">
+				<DetectChar attribute="Operator" context="Command" char="#" column="0"/>
+				<keyword attribute="Course" context="MetadataListString" String="CourseExam"/>
+				<IncludeRules context="CommentStart"/>
+				<DetectChar attribute="NoteBlank" context="Notes" char="0" column="0"/>
+				<DetectChar attribute="NotePon" context="Notes" char="1" column="0"/>
+				<DetectChar attribute="NotePa" context="Notes" char="2" column="0"/>
+				<AnyChar attribute="NotePink" context="Notes" String="3A" column="0"/>
+				<AnyChar attribute="NoteClap" context="Notes" String="4B" column="0"/>
+				<AnyChar attribute="NotePonDrumroll" context="Notes" String="5" column="0"/>
+				<AnyChar attribute="NotePinkDrumroll" context="Notes" String="6" column="0"/>
+				<DetectChar attribute="NoteBalloon" context="Notes" char="7" column="0"/>
+				<AnyChar attribute="NoteDrumroll" context="Notes" String="8" column="0"/>
+				<AnyChar attribute="NoteDrumrollBig" context="Notes" String="9" column="0"/>
+				<AnyChar attribute="NoteClapDrumroll" context="Notes" String="H" column="0"/>
+				<AnyChar attribute="NotePaDrumroll" context="Notes" String="I" column="0"/>
+				<AnyChar attribute="Normal Text" context="Notes" String="CDEFGJKLMNOPQRSTUVWXYZ" column="0"/>
+				<DetectChar attribute="Normal Text" char="," column="0"/>
+			</context>
+			
+			<context name="Notes" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectChar attribute="NoteBlank" char="0"/>
+				<DetectChar attribute="NotePon" char="1"/>
+				<DetectChar attribute="NotePa" char="2"/>
+				<AnyChar attribute="NotePink" String="3A"/>
+				<AnyChar attribute="NoteClap" String="4B"/>
+				<AnyChar attribute="NotePonDrumroll" String="5"/>
+				<AnyChar attribute="NotePinkDrumroll" String="6"/>
+				<DetectChar attribute="NoteBalloon" char="7"/>
+				<AnyChar attribute="NoteDrumroll" String="8"/>
+				<AnyChar attribute="NoteDrumrollBig" String="9"/>
+				<AnyChar attribute="NoteClapDrumroll" String="H"/>
+				<AnyChar attribute="NotePaDrumroll" String="I"/>
+				<AnyChar attribute="Normal Text" String="CDEFGJKLMNOPQRSTUVWXYZ"/>
+				<DetectChar attribute="Normal Text" context="#pop" char=","/>
+			</context>
+			
+			<context name="Command" attribute="Normal Text" lineEndContext="#pop">
+				<keyword attribute="Command" context="CommandFloat" String="CommandFloat"/>
+				<keyword attribute="Command" context="CommandIntString" String="CommandIntString"/>
+				<keyword attribute="Command" context="CommandListString" String="CommandListString"/>
+				<keyword attribute="Command" context="CommandSpaceListInt" String="CommandSpaceListInt"/>
+				<keyword attribute="Command" context="#pop" String="CommandBlank"/>
+				<StringDetect attribute="Command" context="CommandMeasure" String="MEASURE"/>
+				<StringDetect attribute="Command" context="CommandLyric" String="LYRIC"/>
+				<StringDetect attribute="CommandStart" context="ChartEnd" String="END" endRegion="Chart"/>
+				<keyword attribute="Error" context="#pop" String="CommandOutside"/>
+				<StringDetect attribute="Error" context="#pop" String="START"/>
+			</context>
+			
+			<context name="CommandFloat" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectSpaces attribute="Normal Text" context="FloatValue"/>
+			</context>
+			
+			<context name="CommandIntString" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectSpaces attribute="Normal Text" context="IntStringValue"/>
+			</context>
+			
+			<context name="CommandListString" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectSpaces attribute="Normal Text" context="ListStringValue"/>
+			</context>
+			
+			<context name="CommandSpaceListInt" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectSpaces attribute="Normal Text" context="SpaceListIntValue"/>
+			</context>
+			<context name="SpaceListIntValue" attribute="String" lineEndContext="#pop" fallthroughContext="Error">
+				<Int attribute="Int" context="SpacePop"/>
+			</context>
+			<context name="SpacePop" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectSpaces attribute="Normal Text" context="#pop"/>
+			</context>
+			
+			<context name="CommandMeasure" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectSpaces attribute="Normal Text" context="MeasureValue"/>
+			</context>
+			<context name="MeasureValue" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<Float attribute="Int" context="MeasureValue2"/>
+				<Int attribute="Int" context="MeasureValue2"/>
+			</context>
+			<context name="MeasureValue2" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectChar attribute="Normal Text" context="MeasureValue3" char="/"/>
+			</context>
+			<context name="MeasureValue3" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<Float attribute="Int" context="Error2"/>
+				<Int attribute="Int" context="Error2"/>
+			</context>
+			
+			<context name="CommandLyric" attribute="Error" lineEndContext="#pop" fallthroughContext="Error">
+				<DetectSpaces attribute="Normal Text" context="LyricValue"/>
+			</context>
+			<context name="LyricValue" attribute="String" lineEndContext="#pop">
+				<Detect2Chars attribute="String Escape" char="\" char1="n"/>
+				<IncludeRules context="CommentStart"/>
+			</context>
+			
+			<context name="ChartEnd" attribute="Error" lineEndContext="#pop#pop#pop#pop#pop"/>
+			
+			<context name="Error" attribute="Error" lineEndContext="#pop">
+				<IncludeRules context="CommentStart"/>
+			</context>
+			<context name="Error2" attribute="Error" lineEndContext="#pop">
+				<DetectSpaces attribute="Normal Text" context="Error"/>
+				<IncludeRules context="CommentStart"/>
+			</context>
+		</contexts>
+		<itemDatas>
+			<itemData name="Normal Text" defStyleNum="dsNormal"/>
+			<itemData name="Comment" defStyleNum="dsComment"/>
+			<itemData name="Metadata" defStyleNum="dsBuiltIn"/>
+			<itemData name="Course" defStyleNum="dsVariable"/>
+			<itemData name="Command" defStyleNum="dsControlFlow"/>
+			<itemData name="Operator" defStyleNum="dsOperator"/>
+			<itemData name="CommandStart" defStyleNum="dsControlFlow" underline="true"/>
+			<itemData name="Int" defStyleNum="dsDecVal"/>
+			<itemData name="String" defStyleNum="dsString"/>
+			<itemData name="String Escape"  defStyleNum="dsDataType"/>
+			<itemData name="Link" defStyleNum="dsBuiltIn" underline="true"/>
+			<itemData name="Attribute"  defStyleNum="dsAttribute"/>
+			<itemData name="Error" defStyleNum="dsError"/>
+			<itemData name="NoteBlank" defStyleNum="dsComment"/>
+			<itemData name="NotePon" defStyleNum="dsString" bold="true"/>
+			<itemData name="NotePa" defStyleNum="dsControlFlow" bold="true"/>
+			<itemData name="NotePink" defStyleNum="dsFunction" bold="true"/>
+			<itemData name="NoteClap" defStyleNum="dsConstant" bold="true"/>
+			<itemData name="NoteBalloon" defStyleNum="dsDecVal" bold="true" italic="true"/>
+			<itemData name="NoteDrumroll" defStyleNum="dsDecVal" bold="true"/>
+			<itemData name="NoteDrumrollBig" defStyleNum="dsDecVal" bold="true" underline="true"/>
+			<itemData name="NotePonDrumroll" defStyleNum="dsString" bold="true" underline="true"/>
+			<itemData name="NotePaDrumroll" defStyleNum="dsControlFlow" bold="true" underline="true"/>
+			<itemData name="NotePinkDrumroll" defStyleNum="dsFunction" bold="true" underline="true"/>
+			<itemData name="NoteClapDrumroll" defStyleNum="dsConstant" bold="true" underline="true"/>
+		</itemDatas>
+	</highlighting>
+	<general>
+		<comments>
+			<comment name="singleLine" start="//"/>
+		</comments>
+		<keywords casesensitive="1"/>
+	</general>
+</language>
